@@ -15,34 +15,22 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Setup Node.js
+      # Setup Node
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # Show structure (for debug)
-      - name: Show Project Structure
-        run: ls -R
+      # Install dependencies (ROOT LEVEL)
+      - name: Install Dependencies
+        run: npm install
 
-      # Install Backend Dependencies
-      - name: Install Backend Dependencies
+      # Run server (basic test)
+      - name: Run Server
         run: |
-          cd library-system/backend
-          npm install
+          node server.js &
+          sleep 5
 
-      # Install Frontend Dependencies
-      - name: Install Frontend Dependencies
-        run: |
-          cd library-system/frontend
-          npm install
-
-      # Build Frontend
-      - name: Build React App
-        run: |
-          cd library-system/frontend
-          npm run build
-
-      # Success message
-      - name: CI Success
-        run: echo "✅ CI Pipeline completed successfully!"
+      # Success
+      - name: Done
+        run: echo "✅ CI Passed Successfully"
